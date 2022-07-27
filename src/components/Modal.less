@@ -1,0 +1,56 @@
+@import "../colors";
+@import "../global";
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.modal-root {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: @color-background-modal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-root-hidden {
+  animation: fadeOut 1s forwards;
+  .modal-root();
+}
+.modal-root-visible {
+  visibility: visible;
+  animation: fadeIn 1s forwards;
+  .modal-root();
+}
+
+.modal-content-wrapper {
+  width: 500px;
+  @media (max-width: 550px) {
+    width: 90%;
+  }
+  background-color: @color-accent;
+  opacity: 1;
+  border-radius: 6px;
+  padding: 10px 12px 12px;
+  .drops-shadow();
+}
+
+.modal-header-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-header-close-btn {
+  cursor: pointer;
+}

@@ -1,0 +1,51 @@
+@import "../typography.less";
+@import "../colors.less";
+
+@header-height: 66px;
+@header-height-sm: 50px;
+
+.header-root {
+    height: @header-height;
+    @media (max-width: 600px){
+        height: @header-height-sm;
+        justify-content: flex-start;
+        margin-left: 24px;
+    }
+    background-color: @color-background;
+    border-bottom: 1px solid @color-ternary;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header-text-wrapper {
+    .header-font();
+    @media (max-width: 600px){
+        height: @header-height-sm;
+        font-size: 28px;
+    }
+    display: flex;
+    align-items: center;
+}
+
+.header-icons-wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: @header-height;
+    @media (max-width: 600px){
+        height: @header-height-sm;
+    }
+    display: flex;
+    flex-direction: row;
+    color: @color-accent;
+    padding-right: 15px;
+    align-items: center;
+}
+
+.header-icon {
+    cursor: pointer;
+    margin-left: 12px;
+}

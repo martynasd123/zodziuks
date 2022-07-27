@@ -1,0 +1,64 @@
+@import '../colors.less';
+
+.keyboard-wrapper {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.keyboard-button {
+  color: white;
+  height: 58px;
+  background-color: @color-secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 41px;
+  font-size: 1rem;
+  @media (max-width: 700px){
+    min-width: 7vw;
+    //font-size: 3vw;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0.4vw;
+  }
+  padding-left: 2px;
+  padding-right: 2px;
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.keyboard-row {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#backspace-icon {
+  fill: white;
+}
+#backspace-icon-wrapper {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.key-button-correct{
+  background-color: @color-correct;
+}
+
+.key-button-wrong-position{
+  background-color: @color-wrong-position;
+}
+
+.key-button-non-existent{
+  background-color: @color-ternary;
+}

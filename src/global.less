@@ -1,0 +1,54 @@
+@import 'typography.less';
+
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: @color-background;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+h1 {
+    .header-font();
+}
+
+.drops-shadow {
+    -webkit-box-shadow: 8px 8px 25px 0 rgba(0,0,0,0.3);
+    -moz-box-shadow: 8px 8px 25px 0 rgba(0,0,0,0.3);
+    box-shadow: 8px 8px 25px 0 rgba(0,0,0,0.3);
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#confetti-canvas {
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    animation: fadeIn 1s forwards;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.horizontal-separator {
+    height: 1px;
+    background-color: @color-secondary;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}

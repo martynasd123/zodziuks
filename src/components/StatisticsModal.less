@@ -1,0 +1,105 @@
+@import "../colors";
+
+.statistics-modal-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.statistics-modal-header-text {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+.statistics-modal-counter-header-text{
+  .statistics-modal-header-text();
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.statistics-modal-guess-distribution-header-text {
+  .statistics-modal-header-text();
+  margin-top: 10px;
+}
+.statistics-modal-numeric-stats-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+  width: 75%;
+}
+
+.statistics-modal-numeric-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: 16px;
+  flex: 1;
+}
+
+.statistics-modal-numeric-stat-number {
+  font-size: 34px;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.statistics-modal-numeric-stat-explanation {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+}
+
+.guess-distribution-graph-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.guess-distribution-graph-element {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2px;
+  align-items: center;
+  flex: 1;
+}
+
+.guess-distribution-graph-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 3px 8px;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  color: white;
+}
+
+.guess-distribution-graph-bar-active {
+  background-color: @color-correct;
+  .guess-distribution-graph-bar();
+}
+.guess-distribution-graph-bar-inactive {
+  background-color: @color-secondary;
+  .guess-distribution-graph-bar();
+}
+.guess-distribution-graph-bar-animated {
+  animation: statistics-bar-scale-anim 1.5s forwards;
+  transform-origin: left;
+}
+.guess-distribution-graph-number {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+@keyframes statistics-bar-scale-anim {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
