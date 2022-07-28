@@ -71,13 +71,14 @@ export default function StatisticsModal(props) {
     data.games.reverse().find(game => {
         if (game.solved) {
             currentStreak++;
-        } else if(game.completed) {
+        } else if (game.completed) {
             currentStreak = 0;
             return true;
         }
     });
-
+    const todaysGame = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate));
     const completedToday = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate) && game.completed) != null;
+
     return (
         <Modal {...props} >
             <div className="statistics-modal-root">
@@ -94,22 +95,31 @@ export default function StatisticsModal(props) {
                     <div className="horizontal-separator"/>
                     <div className="statistics-modal-counter-header-text">Sekantis Žodžiuks</div>
                     <Timer/>
-                    <button onClick={() => {
+                    <button className="statistics-modal-share-btn" onClick={() => {
+                        const hintMap = todaysGame.hints
+                            .map((row) => row.map(hint => {
+                                if (hint === "correct") {
+                                    return "🟩";
+                                } else if (hint === "wrong_position") {
+                                    return "🟨";
+                                } else {
+                                    return "⬜";
+                                }
+                            }).join('')).join('\n')
+                        const caption = `Žodžiuks ${todaysGame.hints.length}/${Rows}`;
+                        const link = "https://zodziuks.lt";
                         if (window.navigator.share) {
                             window.navigator
                                 .share({
-                                    title: "labass",
-                                    text: `Check out asfasf`,
-                                    url: document.location.href,
+                                    title: caption,
+                                    text: hintMap,
+                                    url: "https://zodziuks.lt",
                                 })
-                                .then(() => {
-                                    console.log('Successfully shared');
-                                })
-                                .catch(error => {
-                                    console.error('Something went wrong sharing the blog', error);
-                                });
-                        }}
-                    }>{JSON.stringify(window.navigator)}</button>
+                        } else {
+                            window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link);
+                        }
+                    }
+                    }>Dalintis</button>
                 </>}
             </div>
         </Modal>
