@@ -17,7 +17,7 @@ export default function TutorialModal(props) {
                         Atspėk <b>Žodžiuką</b> iš šešių spėjimų.
                     </p>
                     <p>
-                        Kiekvienas spėjimas turi būti teisingas šešių raidžių žodis vardininko linksniu.
+                        Kiekvienas spėjimas turi būti bendrinis šešių raidžių žodis vardininko linksniu.
                     </p>
                     <p>
                         Po kiekvieno spėjimo žodžio raidžių spalvos pasikeis, indikuodamos kiek jūsų spėjimas buvo arti
