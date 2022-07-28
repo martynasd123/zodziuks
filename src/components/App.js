@@ -226,7 +226,7 @@ const App = () => {
             return;
         }
         if(Wordlist[guess.toLowerCase()] == null){
-            setToast("Žodis nėra žodžių sąraše");
+            setToast("Žodis nėra žodyne");
             setInput(guess);
             setShakeAnim(true);
             return;
