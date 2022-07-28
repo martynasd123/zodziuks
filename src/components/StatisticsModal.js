@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./StatisticsModal.less";
 import Modal from "./Modal";
 import {GameDate, Rows} from "../Constants";
 import {datesAreOnSameDay} from "../Utils";
 import Timer from "./Timer";
+import ToastContext from "../contexts/ToastContext";
 
 const NumericStat = ({number, explanation}) => {
     return (
@@ -55,6 +56,7 @@ const GuessDistributionGraph = ({data}) => {
 }
 
 export default function StatisticsModal(props) {
+    const {setToast} = useContext(ToastContext);
     const {data} = props;
     if (data.games == null)
         return <div className="statistics-modal-guess-distribution-header-text">Kraunami duomenys</div>
@@ -112,10 +114,11 @@ export default function StatisticsModal(props) {
                             window.navigator
                                 .share({
                                     title: caption,
-                                    text: hintMap,
+                                    text: caption + "\n" + hintMap,
                                     url: "https://zodziuks.lt",
                                 })
                         } else {
+                            setToast("Nukopijuota į iškarpinę")
                             window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link);
                         }
                     }

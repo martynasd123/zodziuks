@@ -9,15 +9,13 @@ import {datesAreOnSameDay, setIntervalX} from "../Utils";
 import {IoIosStats as StatisticsIcon} from "react-icons/io";
 import {BsInfoCircle as HelpIcon} from "react-icons/bs";
 import TutorialModal from "./TutorialModal";
-import Toast from "./Toast";
 import ConfettiGenerator from "confetti-js";
 import Wordlist from "./Wordlist";
 import Word from "../Word";
+import ToastContext from "../contexts/ToastContext";
+import Toast from "./Toast";
 const heart_img = require("../assets/img/heart.svg");
 
-// const keys = Object.keys(Wordlist);
-// const word = keys[Math.floor(Math.random() * keys.length)].toUpperCase()
-// const word = "ASILAS"
 const App = () => {
     const {boardStatePersistent, setBoardStatePersistent} = useContext(BoardStateContext);
     const [board, setBoard] = useState({
@@ -28,9 +26,9 @@ const App = () => {
     const [inputEasterEgg, setInputEasterEgg] = useState("");
     const [hintKeyMap, setHintKeyMap] = useState({});
     const [dialogOpen, setDialogOpen] = useState(null);
-    const [toastText, setToastText] = useState("");
     const [completedAnim, setCompletedAnim] = useState(false);
     const [shakeAnim, setShakeAnim] = useState(false);
+    const {setToast, toast} = useContext(ToastContext);
 
     // A ref to track whether the initial board data has been loaded
     const boardLoaded = useRef(false);
@@ -58,15 +56,6 @@ const App = () => {
             return () => confetti_local.current && confetti_local.current.clear();
         }
     }, [inputEasterEgg]);
-
-    useEffect(() => {
-        if (toastText !== "") {
-            setTimeout(() => {
-                setToastText("");
-            }, 3000);
-        }
-
-    }, [toastText]);
 
     // Load initial board from local storage
     useEffect(() => {
@@ -140,20 +129,20 @@ const App = () => {
     const showCompletedToast = (solved, numGuesses) => {
         if(solved){
             if(numGuesses === 1){
-                setToastText("Genijus!");
+                setToast("Genijus!");
             }else if(numGuesses === 2){
-                setToastText("Valio!");
+                setToast("Valio!");
             }else if(numGuesses === 3){
-                setToastText("Šaunu!");
+                setToast("Šaunu!");
             }else if(numGuesses === 4){
-                setToastText("Puiku!");
+                setToast("Puiku!");
             }else if(numGuesses === 5){
-                setToastText("Neblogai!");
+                setToast("Neblogai!");
             }else if(numGuesses === 6){
-                setToastText("Vos vos...");
+                setToast("Vos vos...");
             }
         }else{
-            setToastText(Word);
+            setToast(Word);
         }
     }
 
@@ -232,12 +221,12 @@ const App = () => {
 
     const handleGuess = (guess) => {
         if(board.guesses.includes(guess)){
-            setToastText("Šį žodį jau išbandei");
+            setToast("Šį žodį jau išbandei");
             setInput(guess);
             return;
         }
         if(Wordlist[guess.toLowerCase()] == null){
-            setToastText("Žodis nėra žodžių sąraše");
+            setToast("Žodis nėra žodžių sąraše");
             setInput(guess);
             setShakeAnim(true);
             return;
@@ -298,10 +287,10 @@ const App = () => {
                 <HelpIcon className="header-icon" size={24} onClick={() => setDialogOpen("tutorial")}/>
                 <StatisticsIcon className="header-icon" size={32} onClick={() => setDialogOpen("statistics")}/>
             </Header>, [setDialogOpen])}
-            <div style={{position: "relative", left: "50%"}}>
-                <Toast open={toastText !== ""} text={toastText}/>
-            </div>
             <canvas id="confetti-canvas"/>
+            <div style={{position: "relative", left: "50%"}}>
+                <Toast open={toast} text={toast}/>
+            </div>
             <div className="content-wrapper">
                 <Grid shakeAnim={shakeAnim} onShakeAnimEnd={() => setShakeAnim(false)} completedAnim={completedAnim} input={input} guesses={board.guesses} hints={board.hints}/>
             </div>
