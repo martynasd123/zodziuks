@@ -113,7 +113,7 @@ export default function StatisticsModal(props) {
                         if (window.navigator.share) {
                             window.navigator
                                 .share({
-                                    url: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
+                                    text: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
                                     // text: caption + "\n" + hintMap,
                                     // url: "https://zodziuks.lt",
                                 })
