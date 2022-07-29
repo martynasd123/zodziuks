@@ -262,7 +262,8 @@ const App = () => {
                 hints[column] = "non_existent";
                 setHintKeyMap(keyMap => {
                     const copy = {...keyMap,}
-                    copy[letter] = "non_existent";
+                    if(copy[letter] == null)
+                        copy[letter] = "non_existent";
                     return copy;
                 });
             }
