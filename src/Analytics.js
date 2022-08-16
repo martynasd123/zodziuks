@@ -9,7 +9,7 @@ export const initPlausible = () => {
     head.appendChild(plausible);
 }
 
-export const recordEvent = (eventName, additionalData = {}) => {
+export const recordEvent = (eventName, additionalData = {} ) => {
     if(plausible){
         console.debug(`[ANALYTICS] Logging event: ${eventName} with params: ${JSON.stringify(additionalData)}`);
         plausible(eventName, { props: additionalData });

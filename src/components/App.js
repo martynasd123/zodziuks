@@ -160,7 +160,7 @@ const App = () => {
             showCompletedToast(solved, board.guesses.length);
             setCompletedAnim(true);
             if (solved) {
-                recordEvent(EVENT_TYPE.SOLVED, board.guesses.length);
+                recordEvent(EVENT_TYPE.SOLVED, { numGuesses: board.guesses.length } );
             } else {
                 recordEvent(EVENT_TYPE.FAILED);
             }
