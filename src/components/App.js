@@ -14,7 +14,7 @@ import Wordlist from "./Wordlist";
 import Word from "../Word";
 import ToastContext from "../contexts/ToastContext";
 import Toast from "./Toast";
-import Analytics from "../Analytics";
+import {EVENT_TYPE, recordEvent} from "../Analytics";
 const heart_img = require("../assets/img/heart.svg");
 
 const App = () => {
@@ -159,6 +159,12 @@ const App = () => {
         if(newlyCompleted){
             showCompletedToast(solved, board.guesses.length);
             setCompletedAnim(true);
+            if (solved) {
+                recordEvent(EVENT_TYPE.SOLVED, board.guesses.length);
+            } else {
+                recordEvent(EVENT_TYPE.FAILED);
+            }
+
         }
         setBoardStatePersistent(boardState => {
             const games = [...boardState.games].map(game => {

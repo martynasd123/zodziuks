@@ -5,6 +5,7 @@ import {GameDate, Rows} from "../Constants";
 import {datesAreOnSameDay} from "../Utils";
 import Timer from "./Timer";
 import ToastContext from "../contexts/ToastContext";
+import { recordEvent, EVENT_TYPE } from "../Analytics";
 
 const NumericStat = ({number, explanation}) => {
     return (
@@ -116,10 +117,13 @@ export default function StatisticsModal(props) {
                                     text: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
                                     // text: caption + "\n" + hintMap,
                                     // url: "https://zodziuks.lt",
-                                })
+                                }).then(() => {
+                                    recordEvent(EVENT_TYPE.SHARED);
+                            })
                         } else {
                             setToast("Nukopijuota į iškarpinę")
                             window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link);
+                            recordEvent(EVENT_TYPE.SHARED_CLIPBOARD);
                         }
                     }
                     }>Dalintis</button>
