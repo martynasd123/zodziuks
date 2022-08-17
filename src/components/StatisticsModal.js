@@ -117,7 +117,7 @@ export default function StatisticsModal(props) {
                                     text: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
                                     // text: caption + "\n" + hintMap,
                                     // url: "https://zodziuks.lt",
-                                }).then(() => {
+                                }).finally(() => {
                                     recordEvent(EVENT_TYPE.SHARED);
                             })
                         } else {
