@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import Header from "./Header";
 import Grid from "./Grid";
 import {Charset, Columns, GameDate, Rows} from "../Constants";
@@ -14,6 +14,7 @@ import Wordlist from "./Wordlist";
 import Word from "../Word";
 import ToastContext from "../contexts/ToastContext";
 import Toast from "./Toast";
+import {EVENT_TYPE, recordEvent} from "../Analytics";
 const heart_img = require("../assets/img/heart.svg");
 
 const App = () => {
@@ -158,6 +159,12 @@ const App = () => {
         if(newlyCompleted){
             showCompletedToast(solved, board.guesses.length);
             setCompletedAnim(true);
+            if (solved) {
+                recordEvent(EVENT_TYPE.SOLVED, { numGuesses: board.guesses.length } );
+            } else {
+                recordEvent(EVENT_TYPE.FAILED);
+            }
+
         }
         setBoardStatePersistent(boardState => {
             const games = [...boardState.games].map(game => {
