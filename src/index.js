@@ -7,7 +7,7 @@ import { initPlausible } from "./Analytics";
 require('./global.less');
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-initPlausible();
+// initPlausible();
 
 root.render(
     <React.StrictMode>

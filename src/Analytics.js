@@ -10,12 +10,12 @@ export const initPlausible = () => {
 }
 
 export const recordEvent = (eventName, additionalData = {} ) => {
-    if(plausible){
-        console.debug(`[ANALYTICS] Logging event: ${eventName} with params: ${JSON.stringify(additionalData)}`);
-        plausible(eventName, { props: additionalData });
-    }else{
-        console.error("Plausible is not initialized while recording event: " + eventName);
-    }
+    // if(plausible){
+    //     console.debug(`[ANALYTICS] Logging event: ${eventName} with params: ${JSON.stringify(additionalData)}`);
+    //     plausible(eventName, { props: additionalData });
+    // }else{
+    //     console.error("Plausible is not initialized while recording event: " + eventName);
+    // }
 }
 
 export const EVENT_TYPE = {
