@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 module.exports = {
     mode: 'production',
     output: {
-        filename: 'bundle.[hash].js'
+        filename: 'bundle.[fullhash].js'
     },
     optimization: {
         minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],

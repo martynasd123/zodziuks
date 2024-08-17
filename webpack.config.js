@@ -8,7 +8,7 @@ delete process.binding("natives").punycode;
 module.exports = {
   mode: 'development',
   output: {
-    filename: 'bundle.[hash].js'
+    filename: 'bundle.[fullhash].js'
   },
   devtool: 'inline-source-map',
   module: {
