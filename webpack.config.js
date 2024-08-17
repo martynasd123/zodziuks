@@ -1,6 +1,4 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const port = process.env.PORT || 3000;
 
@@ -8,9 +6,6 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'bundle.[hash].js'
-  },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()],
   },
   devtool: 'inline-source-map',
   module: {

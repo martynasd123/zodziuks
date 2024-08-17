@@ -1,9 +1,8 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-var OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const port = process.env.PORT || 3000;
 
@@ -13,7 +12,7 @@ module.exports = {
         filename: 'bundle.[hash].js'
     },
     optimization: {
-        minimizer: [new UglifyJsPlugin(), new OptimizeCSSAssetsPlugin({})],
+        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
     devtool: 'inline-source-map',
     module: {
