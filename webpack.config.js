@@ -1,6 +1,9 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const port = process.env.PORT || 3000;
+
+delete process.binding("natives").punycode;
 
 module.exports = {
   mode: 'development',
@@ -49,4 +52,9 @@ module.exports = {
       favicon: 'public/favicon.ico'
     })
   ],
+  resolve: {
+    alias: {
+      punycode: require.resolve(`punycode/`),
+    },
+  },
 };
