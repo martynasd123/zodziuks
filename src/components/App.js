@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import Header from "./Header";
 import Grid from "./Grid";
 import {Charset, Columns, GameDate, Rows} from "../Constants";
@@ -41,7 +41,7 @@ const App = () => {
     const typingAllowed = !gameCompleted && boardLoaded && boardLoaded.current && !dialogOpen && hintsRevealed;
 
     useEffect(() => {
-        if(!confetti.current && inputEasterEgg.includes(atob("RU1JTElKQU1BUklKQQ=="))){
+        if(!confetti.current && (inputEasterEgg.includes(window.atob("RU1JTElKQU1BUklKQQ==")) || inputEasterEgg.includes(window.atob("TUFSVFlOVUtBUw==")))){
             const confetti_local = new ConfettiGenerator({
                 target: 'confetti-canvas',
                 start_from_edge: true ,
