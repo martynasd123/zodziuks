@@ -81,6 +81,8 @@ export default function StatisticsModal(props) {
     data.games.reverse().find(game => {
         if (game.solved) {
             currentStreak++;
+        } else if (!game.completed && datesAreOnSameDay(new Date(game.firstOpened), GameDate)) {
+            return false; //ignore today's game if it is unfinished and continue search
         } else {
             return true;
         }
