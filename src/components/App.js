@@ -255,8 +255,11 @@ const App = () => {
                     return copy;
                 });
             } else if (Word.includes(letter) &&
-                [...guess.substring(0, column)].filter(x => x === letter).length < numSameLetters && // No information revealed about letter so far
-                [...Word].filter((x, index) => guess[index] === x && x === letter).length < numSameLetters // Letter not revealed in further hints
+                // There is at least one of this letter that:
+                // 1) will not be revealed as correct and
+                // 2) hasn't been marked as in the wrong position yet
+                ([...Word].filter((x, index) => (guess[index] === x && x === letter) || //1)
+                    (index < column && guess[index] === letter)).length) < numSameLetters //2)
             ) {
                 hints[column] = "wrong_position";
                 setHintKeyMap(keyMap => {
