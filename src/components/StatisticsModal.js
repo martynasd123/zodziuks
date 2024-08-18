@@ -37,7 +37,7 @@ const GuessDistributionGraph = ({data}) => {
     return (
         <div className="guess-distribution-graph-wrapper">
             {distribution.map((x, index) => {
-                const width = parseFloat(x) * 100.0 / parseFloat(largest);
+                const width = x * 100.0 / largest;
                 return (
                     <div key={index} className="guess-distribution-graph-element">
                         <div className="guess-distribution-graph-number">
@@ -65,20 +65,29 @@ export default function StatisticsModal(props) {
     const completedTotal = data.games.filter(game => game.completed).length;
     const solvedTotal = data.games.filter(game => game.solved).length;
     const winPercentage = completedTotal ? Math.round(100.0 * solvedTotal / completedTotal) : 0;
-    const longestStreak = data.games.reduce((prev, curr, index, arr) => {
+
+    let longestStreak = 0;
+    let firstStreak = data.games.reduce((prev, curr) => {
         if (curr.solved)
             return prev + 1;
-        else return 0;
+        else {
+            longestStreak = Math.max(longestStreak, prev);
+            return 0
+        }
     }, 0);
+    longestStreak = Math.max(longestStreak, firstStreak);
+
     let currentStreak = 0;
     data.games.reverse().find(game => {
         if (game.solved) {
             currentStreak++;
-        } else if (game.completed) {
-            currentStreak = 0;
+        } else if (!game.completed && datesAreOnSameDay(new Date(game.firstOpened), GameDate)) {
+            return false; //ignore today's game if it is unfinished and continue search
+        } else {
             return true;
         }
     });
+
     const todaysGame = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate));
     const completedToday = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate) && game.completed) != null;
 
@@ -110,19 +119,20 @@ export default function StatisticsModal(props) {
                                 }
                             }).join('')).join('\n')
                         const caption = `Žodžiuks ${todaysGame.hints.length}/${Rows}`;
-                        const link = "https://zodziuks.lt";
+                        const link = "https://martynasd123.github.io/zodziuks/";
                         if (window.navigator.share) {
                             window.navigator
                                 .share({
-                                    text: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
+                                    text: caption + "\n" + hintMap + "\n" + link,
                                     // text: caption + "\n" + hintMap,
                                     // url: "https://zodziuks.lt",
                                 }).finally(() => {
                                     recordEvent(EVENT_TYPE.SHARED);
                             })
                         } else {
-                            setToast("Nukopijuota į iškarpinę")
-                            window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link);
+                            window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link)
+                                .then(() => setToast("Nukopijuota į iškarpinę"))
+                                .catch(() => setToast("Klaida - kopijavimas \n į iškarpinę neleidžiamas"))
                             recordEvent(EVENT_TYPE.SHARED_CLIPBOARD);
                         }
                     }
