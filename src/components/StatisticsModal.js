@@ -65,7 +65,7 @@ export default function StatisticsModal(props) {
     const completedTotal = data.games.filter(game => game.completed).length;
     const solvedTotal = data.games.filter(game => game.solved).length;
     const winPercentage = completedTotal ? Math.round(100.0 * solvedTotal / completedTotal) : 0;
-    const longestStreak = data.games.reduce((prev, curr, index, arr) => {
+    const longestStreak = data.games.reduce((prev, curr) => {
         if (curr.solved)
             return prev + 1;
         else return 0;
@@ -110,11 +110,11 @@ export default function StatisticsModal(props) {
                                 }
                             }).join('')).join('\n')
                         const caption = `Žodžiuks ${todaysGame.hints.length}/${Rows}`;
-                        const link = "https://zodziuks.lt";
+                        const link = "https://martynasd123.github.io/zodziuks/";
                         if (window.navigator.share) {
                             window.navigator
                                 .share({
-                                    text: caption + "\n" + hintMap + "\nhttps://zodziuks.lt",
+                                    text: caption + "\n" + hintMap + "\n" + link,
                                     // text: caption + "\n" + hintMap,
                                     // url: "https://zodziuks.lt",
                                 }).finally(() => {
