@@ -37,7 +37,7 @@ const GuessDistributionGraph = ({data}) => {
     return (
         <div className="guess-distribution-graph-wrapper">
             {distribution.map((x, index) => {
-                const width = parseFloat(x) * 100.0 / parseFloat(largest);
+                const width = x * 100.0 / largest;
                 return (
                     <div key={index} className="guess-distribution-graph-element">
                         <div className="guess-distribution-graph-number">
