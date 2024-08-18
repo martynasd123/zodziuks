@@ -121,8 +121,9 @@ export default function StatisticsModal(props) {
                                     recordEvent(EVENT_TYPE.SHARED);
                             })
                         } else {
-                            setToast("Nukopijuota į iškarpinę")
-                            window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link);
+                            window.navigator.clipboard.writeText(caption + "\n" + hintMap + "\n" + link)
+                                .then(() => setToast("Nukopijuota į iškarpinę"))
+                                .catch(() => setToast("Klaida - kopijavimas \n į iškarpinę neleidžiamas"))
                             recordEvent(EVENT_TYPE.SHARED_CLIPBOARD);
                         }
                     }
