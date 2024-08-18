@@ -65,20 +65,27 @@ export default function StatisticsModal(props) {
     const completedTotal = data.games.filter(game => game.completed).length;
     const solvedTotal = data.games.filter(game => game.solved).length;
     const winPercentage = completedTotal ? Math.round(100.0 * solvedTotal / completedTotal) : 0;
-    const longestStreak = data.games.reduce((prev, curr) => {
+
+    let longestStreak = 0;
+    let firstStreak = data.games.reduce((prev, curr) => {
         if (curr.solved)
             return prev + 1;
-        else return 0;
+        else {
+            longestStreak = Math.max(longestStreak, prev);
+            return 0
+        }
     }, 0);
+    longestStreak = Math.max(longestStreak, firstStreak);
+
     let currentStreak = 0;
     data.games.reverse().find(game => {
         if (game.solved) {
             currentStreak++;
-        } else if (game.completed) {
-            currentStreak = 0;
+        } else {
             return true;
         }
     });
+
     const todaysGame = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate));
     const completedToday = data.games.find(game => datesAreOnSameDay(new Date(game.firstOpened), GameDate) && game.completed) != null;
 
